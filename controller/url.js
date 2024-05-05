@@ -9,6 +9,7 @@ async function generateNewURL(req, res) {
     shortId: shortID,
     redirectURL: body.url,
     visitHistory: [],
+    createdBy: req.user._id,
   });
   // return res.status(200).json({ id: shortID });
   return res.render("home", { id: shortID });
