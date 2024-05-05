@@ -26,16 +26,16 @@ async function userLogin(req, res) {
 
   // if everything is fine first create a session id
 
-  const sessionID = uuidv4();
+  // const sessionID = uuidv4();
 
   // storing sessionId with User Object
-  setUser(sessionID, user);
+  const token = setUser(user);
 
   // creating a cookie
 
   //  syntax
   // cookie('CookieName',uid)
-  res.cookie("uid", sessionID);
+  res.cookie("uid", token);
 
   return res.redirect("/");
 }
