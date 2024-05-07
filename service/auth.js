@@ -12,6 +12,7 @@ function setUser(user) {
   const payload = {
     _id: user._id,
     email: user.email,
+    role: user.role,
   };
   //  here in jwt.sign(payload,secretKey)
   return jwt.sign(payload, secretkey);

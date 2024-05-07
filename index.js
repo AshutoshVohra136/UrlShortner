@@ -7,7 +7,8 @@ const cookieParser = require("cookie-parser");
 const staticRoute = require("./routes/staticRoutes");
 const userRoute = require("./routes/user");
 const { connectMongo } = require("./connect");
-const { restrictToLoggedInUserOnly, checkAuth } = require("./middlewares/auth");
+// const { restrictToLoggedInUserOnly, checkAuth } = require("./middlewares/auth");
+const { restrictTo, checkForAuthentication } = require("./middlewares/auth");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
@@ -23,11 +24,11 @@ connectMongo("mongodb://localhost:27017/shortURL")
   .then(() => console.log(`Mongo Db Connected`))
   .catch((err) => console.log(`Error`, err));
 const PORT = 8000;
-
+app.use(checkForAuthentication);
 // in line middleware
-app.use("/url", restrictToLoggedInUserOnly, urlRoute);
+app.use("/url", restrictTo(["NORMAL", "ADMIN"]), urlRoute);
 
-app.use("/", checkAuth, staticRoute);
+app.use("/", staticRoute);
 
 app.use("/user", userRoute);
 

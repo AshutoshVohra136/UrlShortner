@@ -69,12 +69,12 @@ async function userLogin(req, res) {
   //  syntax
   // cookie('CookieName',uid)
   // res.cookie("uid", token);
-  // res.cookie("uid", token);
+  res.cookie("token", token);
 
-  // return res.redirect("/");
-  return res.json({
-    token,
-  });
+  return res.redirect("/");
+  // return res.json({
+  //   token,
+  // });
 }
 
 module.exports = { userSignup, userLogin };
